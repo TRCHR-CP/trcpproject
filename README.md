@@ -8,6 +8,10 @@
     This function will ask you a series of questions about your project and then 
     create the project structure for you. 
 
+    The setup asks separately for the main folder name, the short project name
+    used in report and script titles, and the RStudio project filename. The
+    RStudio project filename defaults to `programs.Rproj` and can be changed.
+
     The function will create a README file that is automatically filled with the 
     project name, analyst name, and date of creation as well as Sesssion Info! No need 
     to remember that anymore. 

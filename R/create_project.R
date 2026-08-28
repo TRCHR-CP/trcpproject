@@ -4,8 +4,13 @@
 #' analysis-specific R scripts, a Quarto report, and an optional Git repository.
 #'
 #' @param path Optional path to the project directory or its parent directory.
-#'   If NULL, the user is asked interactively.
-#' @param project_name Optional human-readable project name.
+#'   If NULL, the user is asked interactively. If a parent directory is
+#'   supplied, `main_folder_name` determines the new project directory.
+#' @param main_folder_name Optional name for the main project folder.
+#' @param project_name Optional short, human-readable project name used in
+#'   report and script titles.
+#' @param rproj_name Optional RStudio project filename. Defaults to
+#'   `programs.Rproj`.
 #' @param analyst_name Optional name of the analyst initializing the project.
 #' @param analysis_type Optional analysis type. One of "general", "survival",
 #'   "regression", or "prediction".
@@ -21,7 +26,9 @@ create_project <- function(
     analyst_name = NULL,
     analysis_type = NULL,
     git = NULL,
-    open = FALSE
+  open = FALSE,
+  main_folder_name = NULL,
+  rproj_name = NULL
 ) {
 
   message("")
@@ -46,13 +53,30 @@ create_project <- function(
   }
 
   # ----------------------------------------------------------
+  # Main folder name
+  # ----------------------------------------------------------
+
+  if (is.null(main_folder_name)) {
+
+    main_folder_name <- readline(
+      "Main folder name: "
+    )
+
+    if (!nzchar(main_folder_name)) {
+      stop(
+        "A main folder name is required.",
+        call. = FALSE
+      )
+    }
+  }
+
   # Project name
   # ----------------------------------------------------------
 
   if (is.null(project_name)) {
 
     project_name <- readline(
-      "Project name: "
+      "Project name (short name for title): "
     )
 
     if (!nzchar(project_name)) {
@@ -62,6 +86,36 @@ create_project <- function(
       )
     }
   }
+
+  # RStudio project filename
+  # ----------------------------------------------------------
+
+  if (is.null(rproj_name)) {
+
+    rproj_name <- readline(
+      "RStudio project filename [programs.Rproj]: "
+    )
+
+    if (!nzchar(rproj_name)) {
+      rproj_name <- "programs.Rproj"
+    }
+  }
+
+  rproj_name <- sub(
+    "\\.Rproj$",
+    "",
+    trimws(rproj_name),
+    ignore.case = TRUE
+  )
+
+  if (!nzchar(rproj_name) || grepl("[/\\\\]", rproj_name)) {
+    stop(
+      "rproj_name must be a filename without a directory path.",
+      call. = FALSE
+    )
+  }
+
+  rproj_name <- paste0(rproj_name, ".Rproj")
 
   # ----------------------------------------------------------
   # Analyst name
@@ -102,11 +156,11 @@ create_project <- function(
   }
 
   # ----------------------------------------------------------
-  # Create project slug
+  # Create main folder slug
   # ----------------------------------------------------------
 
-  project_slug <- .trcp_slug(
-    project_name
+  main_folder_slug <- .trcp_slug(
+    main_folder_name
   )
 
   # ----------------------------------------------------------
@@ -123,7 +177,7 @@ create_project <- function(
     )
   )
 
-  if (identical(path_basename, project_slug)) {
+  if (identical(path_basename, main_folder_slug)) {
 
     project_dir <- path
 
@@ -131,7 +185,7 @@ create_project <- function(
 
     project_dir <- file.path(
       path,
-      project_slug
+      main_folder_slug
     )
   }
 
@@ -174,7 +228,9 @@ create_project <- function(
   message("")
   message("Project configuration")
   message("--------------------")
+  message("Main folder name: ", main_folder_name)
   message("Project name: ", project_name)
+  message("RStudio project file: ", rproj_name)
   message(
     "Analyst name: ",
     if (nzchar(analyst_name))
@@ -220,7 +276,8 @@ create_project <- function(
   .trcp_write_project_files(
     project_dir = project_dir,
     project_name = project_name,
-    project_slug = project_slug,
+    project_slug = main_folder_slug,
+    rproj_name = rproj_name,
     analyst_name = analyst_name,
     analysis_type = analysis_type
   )
@@ -605,6 +662,7 @@ create_project <- function(
     project_dir,
     project_name,
     project_slug,
+  rproj_name,
     analyst_name,
     analysis_type
 ) {
@@ -784,10 +842,7 @@ create_project <- function(
 
   rproj_file <- file.path(
     project_dir,
-    paste0(
-      project_slug,
-      ".Rproj"
-    )
+    rproj_name
   )
 
 
