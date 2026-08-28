@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+code, pre, kbd, samp {
+  font-family: 'Inconsolata', monospace;
+}
+
+h1 {
+  color: #C62828;
+  font-size: 16pt;
+  font-weight: 700;
+}
+
+h2, h3, h4, h5 {
+  font-size: 14pt;
+}
+
+p {
+  font-size: 12pt;
+}
+
+blockquote {
+  margin-inline-start: 0;
+  padding-left: 25pt;
+  padding-right: 25pt;
+  border-left: 2pt solid;
+}
+
+img {
+  max-width: 100%;
+}
+
+#title-block-header,
+#title-block-header .quarto-title,
+#title-block-header .quarto-title-meta {
+  display: block !important;
+}
+
+#title-block-header .title {
+  color: #C62828;
+  font-size: 22pt;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.quarto-title-meta > * {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 0.15rem;
+}
+
+.quarto-title-meta-heading {
+  display: none !important;
+}
+
+.quarto-title-meta-contents {
+  display: block !important;
+  font-size: 12pt;
+  color: #444;
+}

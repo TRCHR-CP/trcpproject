@@ -1,0 +1,26 @@
+# R
+.Rhistory
+.RData
+.Ruserdata
+
+# RStudio
+.Rproj.user/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Quarto
+*_cache/
+*_files/
+
+# Local output
+5_output/
+
+# Raw / potentially sensitive data
+1_data/raw/*
+!1_data/raw/.gitkeep
+
+# Derived datasets
+1_data/derived/*
+!1_data/derived/.gitkeep

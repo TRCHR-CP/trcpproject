@@ -1,0 +1,136 @@
+---
+title: "{{PROJECT_NAME}}"
+author: "{{ANALYST}}"
+date: "`r Sys.Date()`"
+date-format: long
+format:
+  html:
+    output-file: preliminary_report.html
+    theme: united
+    title-block-banner: false
+    grid:
+      body-width: 900px
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-expand: true
+    smooth-scroll: true
+    code-fold: false
+    fig-align: center
+    fig-width: 6.5
+    css: styleq.css
+    tbl-colwidths: false
+crossref:
+  fig-title: "Figure"
+  tbl-title: "Table"
+csl: https://www.zotero.org/styles/apa
+link-citations: true
+editor: visual
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(scales)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(trcpetc)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  dev = "png",
+  dev.args = list(pointsize = 11),
+  fig.show = "hold",
+  out.extra = 'style="border:20px solid white;"'
+)
+
+knit_hooks$set(
+  inline = function(x) if (is.numeric(x)) round(x, 3) else x
+)
+
+options(knitr.kable.NA = "")
+options(scipen = 999)
+```
+
+```{r example-data, echo=FALSE}
+set.seed(123)
+
+# load("../1_data/derived/2_descriptive.RData")
+
+# Replace this example data with the results from 2_descriptive.R.
+cars$study_id <- seq_len(nrow(cars))
+cars$colour <- factor(ifelse(cars$speed > 10, "red", "blue"))
+
+tab_overall <- trcpetc::table_one(cars)
+tab_group <- trcpetc::table_one(cars, group = colour)
+```
+
+# Introduction
+
+Quarto documents are very similar to Rmd documents. The advantage is that you get two editors that you can switch between in the toggle top left (Source vs. Visual). It can be convenient to use the Visual one, for example when 'hand-writing' a table. You can also access other formatting help in the task bar above.
+
+Referencing literature works the same as in Rmd (brackets and at), for example [@Gao2026] .
+
+| Abbreviation | Description         |
+|--------------|---------------------|
+| Rmd          | R-markdown document |
+| Qmd          | Quarto document     |
+
+: Table that has quickly been added using the "Table" toggle in the task bar
+
+In this document, we also use the new trcpetc workflow for tables, i.e. table_one() to get the raw descriptives, then kable_table_one to automatically make the header nice etc.
+## Background
+
+## Objectives
+
+# Methods
+
+## Study population
+
+## Data sources
+
+## Statistical analysis
+
+Clinical characteristics were summarized using descriptive statistics. Continuous variables were characterized using median and interquartile range; dichotomous or polytomous variables were characterized using frequencies.
+
+Between-group comparisons were evaluated using Wilcoxon rank-sum tests for continuous variables and Fisher's exact tests for dichotomous and polytomous variables.
+
+Describe the main analyses, effect measures, confidence intervals, and missing-data approach here.
+
+Analyses were performed using `r R.version.string` (R Foundation for Statistical Computing, Vienna, Austria).
+
+# Results
+
+## Descriptive statistics
+
+Use the descriptive results created in `2_descriptive.R` here. Tables and figures should be numbered through their chunk labels and captions.
+
+See @tbl-cars-overall for an example of a referenced table.
+
+```{r tbl-cars-overall, echo=FALSE}
+#| tbl-cap: "Summary of overall characteristics"
+
+kable_table_one(tab_overall)
+```
+
+```{r tbl-cars-group, echo=FALSE}
+#| tbl-cap: "Summary of characteristics by colour"
+
+kable_table_one(tab_group)
+```
+
+You can also include evaluated R expressions directly in prose when needed.
+
+
+See @fig-cars for an example of a cross-referenced figure.
+
+```{r fig-cars, echo=FALSE}
+#| fig-cap: "Relationship between speed and distance"
+
+plot(cars$speed, cars$dist)
+```
+
+# Discussion
+
+# Conclusion

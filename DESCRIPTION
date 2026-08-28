@@ -1,0 +1,19 @@
+Package: trcpproject
+Type: Package
+Title: Create Standardized TRCP Analysis Projects
+Version: 0.1.0
+Authors@R: 
+    person(
+        "TRCP",
+        "Brigitte",
+        email = "brigitte.mueller@uhn.ca",
+        role = c("aut", "cre")
+    )
+Description: 
+    Interactive project scaffolding for standardized TRCP analysis projects.
+    Creates a predefined folder structure, analysis scripts, Quarto reports,
+    and optional Git repositories using analysis-specific templates.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
