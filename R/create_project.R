@@ -35,9 +35,7 @@ create_project <- function(
 
   if (is.null(path)) {
 
-    path <- readline(
-      "Project directory (parent folder or full project path): "
-    )
+    path <- .trcp_choose_parent_path()
 
     if (!nzchar(path)) {
       stop(
@@ -955,4 +953,53 @@ create_project <- function(
 
 
   invisible(TRUE)
+}
+
+
+# ============================================================
+# Choose project parent directory
+# ============================================================
+
+.trcp_choose_parent_path <- function() {
+
+  if (
+    interactive() &&
+    requireNamespace(
+      "rstudioapi",
+      quietly = TRUE
+    ) &&
+    rstudioapi::isAvailable()
+  ) {
+
+    selected_path <- rstudioapi::selectDirectory(
+      caption = "Select the parent folder for the new project",
+      label = "Select"
+    )
+
+    if (!is.null(selected_path) && nzchar(selected_path)) {
+      return(selected_path)
+    }
+
+    stop(
+      "Project folder selection was cancelled.",
+      call. = FALSE
+    )
+  }
+
+  current_path <- getwd()
+
+  message(
+    "Current working directory: ",
+    current_path
+  )
+
+  path <- readline(
+    "Parent folder for the new project [Enter for current directory]: "
+  )
+
+  if (!nzchar(path)) {
+    return(current_path)
+  }
+
+  path
 }
