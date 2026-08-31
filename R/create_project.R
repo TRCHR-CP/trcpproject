@@ -40,9 +40,31 @@ create_project <- function(
   # Project location
   # ----------------------------------------------------------
 
+  existing_project <- FALSE
+
   if (is.null(path)) {
 
-    path <- .trcp_choose_parent_path()
+    existing_project <- .trcp_yes_no(
+      "Does the main project folder already exist?",
+      default = FALSE
+    )
+
+    if (existing_project) {
+
+      path <- .trcp_choose_existing_project_path()
+
+      main_folder_name <- basename(
+        normalizePath(
+          path,
+          winslash = "/",
+          mustWork = FALSE
+        )
+      )
+
+    } else {
+
+      path <- .trcp_choose_parent_path()
+    }
 
     if (!nzchar(path)) {
       stop(
@@ -56,7 +78,7 @@ create_project <- function(
   # Main folder name
   # ----------------------------------------------------------
 
-  if (is.null(main_folder_name)) {
+  if (is.null(main_folder_name) && !existing_project) {
 
     main_folder_name <- readline(
       "Main folder name: "
@@ -169,31 +191,38 @@ create_project <- function(
 
   path <- path.expand(path)
 
-  path_basename <- basename(
-    normalizePath(
-      path,
-      winslash = "/",
-      mustWork = FALSE
-    )
-  )
-
-  if (identical(path_basename, main_folder_slug)) {
+  if (existing_project) {
 
     project_dir <- path
 
   } else {
 
-    project_dir <- file.path(
-      path,
-      main_folder_slug
+    path_basename <- basename(
+      normalizePath(
+        path,
+        winslash = "/",
+        mustWork = FALSE
+      )
     )
+
+    if (identical(path_basename, main_folder_slug)) {
+
+      project_dir <- path
+
+    } else {
+
+      project_dir <- file.path(
+        path,
+        main_folder_slug
+      )
+    }
   }
 
   # ----------------------------------------------------------
   # Check existing directory
   # ----------------------------------------------------------
 
-  if (dir.exists(project_dir)) {
+  if (dir.exists(project_dir) && !existing_project) {
 
     existing_files <- list.files(
       project_dir,
@@ -218,6 +247,31 @@ create_project <- function(
       project_dir,
       recursive = TRUE,
       showWarnings = FALSE
+    )
+  }
+
+  if (existing_project) {
+
+    existing_files <- list.files(
+      project_dir,
+      all.files = TRUE,
+      no.. = TRUE,
+      recursive = TRUE,
+      full.names = FALSE
+    )
+
+    message("")
+    message("Existing project folder: ", project_dir)
+
+    if (length(existing_files) > 0) {
+      message("Files and folders already present:")
+      message(paste(existing_files, collapse = "\n"))
+    } else {
+      message("The project folder is empty.")
+    }
+
+    message(
+      "Please move raw data into the project's 1_data/raw folder."
     )
   }
 
@@ -1054,6 +1108,51 @@ create_project <- function(
 
   if (!nzchar(path)) {
     return(current_path)
+  }
+
+  path
+}
+
+
+# ============================================================
+# Choose an existing project directory
+# ============================================================
+
+.trcp_choose_existing_project_path <- function() {
+
+  if (
+    interactive() &&
+    requireNamespace(
+      "rstudioapi",
+      quietly = TRUE
+    ) &&
+    rstudioapi::isAvailable()
+  ) {
+
+    selected_path <- rstudioapi::selectDirectory(
+      caption = "Select the existing main project folder",
+      label = "Select"
+    )
+
+    if (!is.null(selected_path) && nzchar(selected_path)) {
+      return(selected_path)
+    }
+
+    stop(
+      "Project folder selection was cancelled.",
+      call. = FALSE
+    )
+  }
+
+  path <- readline(
+    "Path to the existing main project folder: "
+  )
+
+  if (!nzchar(path) || !dir.exists(path)) {
+    stop(
+      "An existing project folder is required.",
+      call. = FALSE
+    )
   }
 
   path
