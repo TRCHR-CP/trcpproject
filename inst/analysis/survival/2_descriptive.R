@@ -64,7 +64,7 @@ competing_risk_data <- construct_surv_cmprisk_var(
   death_dt = DeathDate,
   surv_varname = c('evt_time','evt'),
   append = TRUE,
-  # adm_cnr_time = 24,
+  adm_cnr_time = 24,
   units = "months"
 )
 

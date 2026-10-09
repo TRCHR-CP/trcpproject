@@ -163,7 +163,8 @@ km %>% summarize_km(time_lab = 'Months since surgery')
 #| fig-cap: "Kaplan-Meier curve with log-rank test"
 
 km %>%
-    show_surv(x_lab = "Months since surgery", pvalue_pos = "bottomright", atrisk_init_pos = -0.15, x_lim = c(0,30))
+    show_surv(x_lab = "Months since surgery", pvalue_pos = "bottomright", atrisk_init_pos = -0.15,
+    x_lim = c(0,24), x_break = c(0,6, 12, 18, 24)) # Use up to the time you admin-censored!
 ```
 
 ### Time-to-any reintervention (competing risk example)
@@ -171,7 +172,7 @@ km %>%
 ```{r tab-anyre, echo=FALSE, warning=FALSE, message=FALSE}
 #| tbl-cap: "Cumulative incidence of any reintervention."
 
-cif %>% summarize_cif(time_lab = 'Years since surgery', evt_type= 1)
+cif %>% summarize_cif(time_lab = 'Years since surgery', evt_type= 1, x_lim = c(0,24), x_break = c(0,6, 12, 18, 24))
 
 ```
 
