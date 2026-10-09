@@ -172,7 +172,7 @@ km %>%
 ```{r tab-anyre, echo=FALSE, warning=FALSE, message=FALSE}
 #| tbl-cap: "Cumulative incidence of any reintervention."
 
-cif %>% summarize_cif(time_lab = 'Years since surgery', evt_type= 1, x_lim = c(0,24), x_break = c(0,6, 12, 18, 24))
+cif %>% summarize_cif(time_lab = 'Years since surgery', evt_type= 1)
 
 ```
 
@@ -182,7 +182,7 @@ cif %>% summarize_cif(time_lab = 'Years since surgery', evt_type= 1, x_lim = c(0
 cif %>%
     show_cif(evt_type = 1,
              y_lab = 'Proportion of patients with any reintervention',
-             x_lab = 'Years since surgery'
+             x_lab = 'Years since surgery', x_lim = c(0,24), x_break = c(0,6, 12, 18, 24)
              )
 
 
