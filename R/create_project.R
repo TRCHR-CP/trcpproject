@@ -13,7 +13,7 @@
 #'   `programs.Rproj`.
 #' @param analyst_name Optional name of the analyst initializing the project.
 #' @param analysis_type Optional analysis type. One of "general", "survival",
-#'   "regression", or "prediction".
+#'   or "prediction".
 #' @param git Logical. Should a Git repository be initialized?
 #'   If NULL, the user is asked interactively.
 #' @param open Logical. Should the project be opened in RStudio after creation?
@@ -417,8 +417,7 @@ create_project <- function(
     "\n",
     "1: General\n",
     "2: Survival analysis\n",
-    "3: Regression\n",
-    "4: Clinical prediction model\n",
+    "3: Clinical prediction model\n",
     "\n",
     sep = ""
   )
@@ -433,20 +432,19 @@ create_project <- function(
       as.integer(answer)
     )
 
-    if (choice %in% 1:4) {
+    if (choice %in% 1:3) {
 
       return(
         c(
           "general",
           "survival",
-          "regression",
           "prediction"
         )[[choice]]
       )
     }
 
     message(
-      "Please enter 1, 2, 3, or 4."
+      "Please enter 1, 2, or 3."
     )
   }
 }
@@ -465,15 +463,12 @@ create_project <- function(
   aliases <- c(
     "1" = "general",
     "2" = "survival",
-    "3" = "regression",
-    "4" = "prediction",
+    "3" = "prediction",
 
     "general" = "general",
 
     "survival" = "survival",
     "survival analysis" = "survival",
-
-    "regression" = "regression",
 
     "prediction" = "prediction",
     "clinical prediction model" = "prediction"
@@ -484,7 +479,7 @@ create_project <- function(
     stop(
       paste0(
         "analysis_type must be one of: ",
-        "general, survival, regression, prediction."
+        "general, survival, prediction."
       ),
       call. = FALSE
     )
@@ -510,9 +505,6 @@ create_project <- function(
 
     survival =
       "Survival analysis",
-
-    regression =
-      "Regression",
 
     prediction =
       "Clinical prediction model"
