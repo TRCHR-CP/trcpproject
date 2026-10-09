@@ -19,8 +19,8 @@ my_tab <- cardio_data %>%
   table_one(
     group = Sex,
     datadic = cardio_data_dictionary,
-    var_name = "VariableName",
-    var_desp = "Label",
+    var_name = VariableName,
+    var_desp = Label,
     # pvalue = TRUE, default is SMD
     include_overall = "all"
   )
