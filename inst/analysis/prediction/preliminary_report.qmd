@@ -6,6 +6,7 @@ date-format: long
 format:
   html:
     output-file: preliminary_report.html
+    embed-resources: true
     theme: united
     title-block-banner: false
     grid:
@@ -27,6 +28,12 @@ csl: https://www.zotero.org/styles/apa
 link-citations: true
 editor: visual
 ---
+
+<div style="margin-bottom: 20px;">
+  <img src="images/TRCP_Logo.png"
+       alt="TRCP group logo"
+       style="width: 80px; height: auto;">
+</div>
 
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)

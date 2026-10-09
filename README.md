@@ -22,4 +22,9 @@
 
     When you later work on a project, always read the README file first, then use 
     the appropriate Dockerized Rversion.
+
+    The generated project folders include `0_documents/` for project documents
+    from the PI or study team, `4_report/` for the Quarto report, and
+    `5_manuscript/` for manuscript drafts. Analysis data are saved under
+    `1_data/derived/`, and tables and figures belong under `3_results/`.
     

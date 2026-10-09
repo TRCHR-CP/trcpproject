@@ -13,7 +13,15 @@ load("1_data/derived/1_data_setup.RData")
 # ============================================================
 # Descriptive statistics
 # ============================================================
-
+my_tab <- work_d %>%
+    select(-PatID) %>%
+    table_one(df = ., 
+              group = Op_type,
+                datadic = datadic,
+                var_name = var_name, 
+                var_desp = var_desp,
+                # pval = TRUE, default SMD
+                include_overall = "all") 
 
 # ============================================================
 # Main analysis

@@ -619,7 +619,7 @@ create_project <- function(
 
   dirs <- c(
 
-    "0_admin",
+    "0_documents",
 
     "1_data/raw",
     "1_data/derived",
@@ -632,7 +632,7 @@ create_project <- function(
 
     "4_report",
 
-    "5_output"
+    "5_manuscript"
   )
 
   for (directory in dirs) {
@@ -823,6 +823,24 @@ create_project <- function(
   file.copy(
     style_source,
     file.path(project_dir, "4_report", "styleq.css"),
+    overwrite = TRUE
+  )
+
+  logo_source <- .trcp_template_path(
+    file.path("base", "images", "TRCP_Logo.png")
+  )
+
+  logo_dir <- file.path(project_dir, "4_report", "images")
+
+  dir.create(
+    logo_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+
+  file.copy(
+    logo_source,
+    file.path(logo_dir, "TRCP_Logo.png"),
     overwrite = TRUE
   )
 

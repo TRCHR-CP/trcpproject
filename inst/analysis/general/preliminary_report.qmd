@@ -6,6 +6,7 @@ date-format: long
 format:
   html:
     output-file: preliminary_report.html
+    embed-resources: true
     theme: united
     title-block-banner: false
     grid:
@@ -27,6 +28,12 @@ csl: https://www.zotero.org/styles/apa
 link-citations: true
 editor: visual
 ---
+
+<div style="margin-bottom: 20px;">
+  <img src="images/TRCP_Logo.png"
+       alt="TRCP group logo"
+       style="width: 80px; height: auto;">
+</div>
 
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)
@@ -62,8 +69,6 @@ set.seed(123)
 cars$study_id <- seq_len(nrow(cars))
 cars$colour <- factor(ifelse(cars$speed > 10, "red", "blue"))
 
-tab_overall <- trcpetc::table_one(cars)
-tab_group <- trcpetc::table_one(cars, group = colour)
 ```
 
 # Introduction
@@ -108,20 +113,17 @@ Use the descriptive results created in `2_descriptive.R` here. Tables and figure
 
 See @tbl-cars-overall for an example of a referenced table.
 
-```{r tbl-cars-overall, echo=FALSE}
-#| tbl-cap: "Summary of overall characteristics"
+```{r tbl-allbygroup, echo=FALSE}
+#| tbl-cap: "Summary of overall characteristics and by group"
 
-kable_table_one(tab_overall)
+kable_table_one(my_tab)
 ```
 
-```{r tbl-cars-group, echo=FALSE}
-#| tbl-cap: "Summary of characteristics by colour"
 
-kable_table_one(tab_group)
-```
+## Different tabs for sensitiviy analysis etc
 
-You can also include evaluated R expressions directly in prose when needed.
-
+::: panel-tabset
+### Cars analyzed
 
 See @fig-cars for an example of a cross-referenced figure.
 
@@ -130,6 +132,10 @@ See @fig-cars for an example of a cross-referenced figure.
 
 plot(cars$speed, cars$dist)
 ```
+
+### Cars analyzed by type
+
+Not done, just an example
 
 # Discussion
 

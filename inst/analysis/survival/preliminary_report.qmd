@@ -6,6 +6,7 @@ date-format: long
 format:
   html:
     output-file: preliminary_report.html
+    embed-resources: true
     theme: united
     title-block-banner: false
     grid:
@@ -27,6 +28,12 @@ csl: https://www.zotero.org/styles/apa
 link-citations: true
 editor: visual
 ---
+
+<div style="margin-bottom: 20px;">
+  <img src="images/TRCP_Logo.png"
+       alt="TRCP group logo"
+       style="width: 80px; height: auto;">
+</div>
 
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)
@@ -57,14 +64,9 @@ options(scipen = 999)
 ```{r example-data, echo=FALSE}
 set.seed(123)
 
-# load("../1_data/derived/2_descriptive.RData")
+load("../1_data/derived/2_descriptive.RData")
 
-# Replace this example data with the results from 2_descriptive.R.
-cars$study_id <- seq_len(nrow(cars))
-cars$colour <- factor(ifelse(cars$speed > 10, "red", "blue"))
 
-tab_overall <- trcpetc::table_one(cars)
-tab_group <- trcpetc::table_one(cars, group = colour)
 ```
 
 # Introduction
@@ -100,6 +102,20 @@ Clinical characteristics were summarized using descriptive statistics. Continuou
 
 Between-group comparisons were evaluated using Wilcoxon rank-sum tests for continuous variables and Fisher's exact tests for dichotomous and polytomous variables.
 
+Time to death was analyzed using Kaplan-Meier methods, and administratively censored at XX years.
+
+Time to first reintervention was analyzed using a competing-risks framework, 
+with death  treated as a competing event, with administrative censoring at XX years. 
+Cumulative incidence functions (CIFs) for reintervention were estimated according to GROUP. 
+The cumulative incidence functions were compared using Gray's test.
+
+Serial XXX measurements were evaluated longitudinally. Repeated measurements within patients were 
+accounted for using generalized estimating equations (GEE), with GROUP, time, and their 
+interaction as fixed effects and patient identifier as the clustering variable. An exchangeable 
+working correlation structure was used. The interaction between GROUP and time was used to assess
+whether the trajectories differed between the groups, and expressed as p-value. Individual patient 
+trajectories are shown with locally estimated scatterplot smoothing (LOESS) curves for each group.
+
 Analyses were performed using `r R.version.string` (R Foundation for Statistical Computing, Vienna, Austria).
 
 
@@ -112,17 +128,12 @@ Use the descriptive results created in `2_descriptive.R` here.
 
 See @tbl-cars-overall for an example of a referenced table.
 
-```{r tbl-cars-overall, echo=FALSE}
-#| tbl-cap: "Summary of overall characteristics"
+```{r tbl-overall, echo=FALSE}
+#| tbl-cap: "Summary of overall characteristics and by group"
 
-kable_table_one(tab_overall)
+kable_table_one(my_tab)
 ```
 
-```{r tbl-cars-group, echo=FALSE}
-#| tbl-cap: "Summary of characteristics by colour"
-
-kable_table_one(tab_group)
-```
 
 You can also include evaluated R expressions directly in prose when needed.
 
@@ -133,6 +144,48 @@ See @fig-cars for an example of a cross-referenced figure.
 
 plot(cars$speed, cars$dist)
 ```
+
+
+## Survial and competing risk figures added as tabsets as an example
+
+::: panel-tabset
+
+### Overall survival
+
+```{r tab-surv, echo=FALSE, warning=FALSE, message=FALSE}
+#| tbl-cap: "Survival summary by group"
+
+km %>% summarize_km(time_lab = 'Months since surgery')
+```
+
+```{r fig-surv, echo=FALSE, warning=FALSE, message=FALSE}
+#| fig-cap: "Kaplan-Meier curve with log-rank test"
+
+km %>%
+    show_surv(x_lab = "Months since surgery", pvalue_pos = "bottomright", atrisk_init_pos = -0.15)
+```
+
+### Time-to-any reintervention (competing risk example)
+
+```{r tab-anyre, echo=FALSE, warning=FALSE, message=FALSE}
+#| tbl-cap: "Cumulative incidence of any reintervention."
+
+cif %>% summarize_cif(time_lab = 'Years since surgery', evt_type= 1)
+
+```
+
+```{r fig-anyre, echo=FALSE, warning=FALSE, message=FALSE}
+#| fig-cap: "Cumulative incidence functions for any reintervention, with death treated as a competing event. Follow-up was administratively censored at XX years. P value from Gray's test."
+
+cif %>%
+    show_cif(evt_type = 1,
+             y_lab = 'Proportion of patients with any reintervention',
+             x_lab = 'Years since surgery'
+             )
+
+
+```
+
 
 
 
