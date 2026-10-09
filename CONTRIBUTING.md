@@ -54,7 +54,6 @@ For new or modified functions, please add or update documentation as appropriate
 
 For changes to package behaviour, please add or update tests where practical.
 
-If you are unsure whether something needs a test or documentation, don't worry — mention it in the Pull Request and discuss it with the reviewer.
 
 ---
 
@@ -117,47 +116,25 @@ This will automatically close the Issue when the Pull Request is merged.
 
 ## 7. Code review
 
-At least one other team member should review changes before they are merged into `main`.
-
-Reviewers may comment on:
-
-* Correctness
-* Readability
-* Documentation
-* Tests
-* Potential unintended effects on existing functionality
-
-Comments are intended to improve the package, not to criticize the person making the change.
-
-If changes are requested, make them on the same branch and push them. The Pull Request will update automatically.
+Ideally, someone would reviewer the code for correctness, readability, documentation and test before merging to main. We usually haven't done that systematically. 
 
 ---
 
 ## 8. Merging
 
-Once:
+Once everything is fine, the Pull Request can be merged into `main`.
 
-* the Pull Request has been reviewed,
-* requested changes have been addressed, and
-* the automated checks pass,
-
-the Pull Request can be merged into `main`.
-
-After merging, the branch can normally be deleted.
+After merging, the branch can be deleted.
 
 ---
 
 ## 9. Small changes
 
-For very small changes (for example, fixing a typo in the README), it may be reasonable to work more directly.
-
-When in doubt, use the Issue → Branch → Pull Request workflow.
+For very small changes work directly, no need for branches.
 
 ---
 
 ## 10. Working together
-
-Please try to avoid having multiple people make unrelated changes to the same code at the same time.
 
 If you are planning a larger change, especially one that affects the package structure or existing functions, discuss it with the team first and create an Issue describing the planned work.
 
@@ -178,7 +155,5 @@ We aim for code that is:
 * **Tested** — important functionality should have tests where practical.
 * **Documented** — exported functions should have appropriate documentation.
 * **Backward-compatible where possible** — changes to existing functionality should be discussed before they are introduced.
-
-Most importantly: **ask questions early rather than spending a long time trying to guess what the intended behaviour should be.**
 
 Thank you for helping develop trcpproject!
