@@ -13,7 +13,7 @@ For anything more than a very small change:
 3. Create a branch for your work.
 4. Make your changes and test them.
 5. Open a **Pull Request**.
-6. Ask at least one colleague to review it.
+6. Ideally ask a colleague to review it.
 7. Merge the Pull Request after the checks pass and the reviewer approves it.
 
 Please avoid pushing directly to `main`.
