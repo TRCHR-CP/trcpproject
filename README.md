@@ -6,7 +6,12 @@ optional Git repository.
 
 ## Create a project
 
-Install the package from GitHub, if needed:
+The package is included in our newest docker image ghcr.io/trchr-cp/r-trchr-public:latest
+
+which you can pull with 
+docker pull ghcr.io/trchr-cp/r-trchr-public:latest
+
+If you do not use the Docker, you can install the package from GitHub, if needed:
 
 ```r
 install.packages("remotes")
