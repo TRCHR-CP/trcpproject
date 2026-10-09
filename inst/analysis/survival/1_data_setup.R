@@ -8,7 +8,6 @@ library(ggplot2)
 library(tidyverse)
 library(survival)
 library(trcpetc)
-library(joineRML)
 
 # ============================================================
 # Import data
