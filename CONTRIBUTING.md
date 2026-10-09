@@ -16,7 +16,7 @@ For anything more than a very small change:
 6. Ideally ask a colleague to review it.
 7. Merge the Pull Request after the checks pass and the reviewer approves it.
 
-Please avoid pushing directly to `main`.
+Please only push very small changes directly to `main`.
 
 ---
 
