@@ -140,8 +140,9 @@ plot(cars$speed, cars$dist)
 ### Cars analyzed by type
 
 Not done, just an example
+:::
 
 # Discussion
 
 # Conclusion
-:::
+

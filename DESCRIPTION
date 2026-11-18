@@ -1,7 +1,7 @@
 Package: trcpproject
 Type: Package
 Title: Create Standardized TRCP Analysis Projects
-Version: 0.2.0
+Version: 0.2.2
 Authors@R: 
     person(
         "TRCP",

@@ -19,7 +19,7 @@ remotes::install_github("TRCHR-CP/trcpproject")
 
 # or if you want to make sure to install a specific version, use the tag:
 
-remotes::install_github("TRCHR-CP/trcpproject@v0.2.1")
+remotes::install_github("TRCHR-CP/trcpproject@v0.2.2")
 
 
 ```

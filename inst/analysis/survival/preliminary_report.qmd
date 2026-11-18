@@ -156,6 +156,8 @@ km %>%
     show_surv(x_lab = "Months since surgery", pvalue_pos = "bottomright", atrisk_init_pos = -0.15,
     x_lim = c(0,24), x_break = c(0,6, 12, 18, 24)) # Use up to the time you admin-censored!
 ```
+:::
+
 
 ### Time-to-any reintervention (competing risk example)
 
@@ -178,7 +180,8 @@ cif %>%
 
 ```
 
+
 # Discussion
 
 # Conclusion
-:::
+
