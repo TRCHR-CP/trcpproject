@@ -6,6 +6,8 @@ date-format: long
 format:
   html:
     output-file: preliminary_report.html
+    number-sections: true
+    number-depth: 3
     embed-resources: true
     theme: united
     title-block-banner: false
@@ -29,11 +31,13 @@ link-citations: true
 editor: visual
 ---
 
-<div style="margin-bottom: 20px;">
-  <img src="images/TRCP_Logo.png"
+::: {style="margin-bottom: 20px;"}
+```{=html}
+<img src="images/TRCP_Logo.png"
        alt="TRCP group logo"
        style="width: 80px; height: auto;">
-</div>
+```
+:::
 
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)
@@ -94,7 +98,6 @@ In this document, we also use the new trcpetc workflow for tables, i.e. table_on
 
 ## Objectives
 
-
 # Methods
 
 ## Study population
@@ -109,7 +112,6 @@ In this document, we also use the new trcpetc workflow for tables, i.e. table_on
 
 Describe the resampling strategy and optimism correction.
 
-
 Report apparent and internally validated performance with uncertainty intervals.
 
 ### Model development
@@ -119,7 +121,6 @@ Report apparent and internally validated performance with uncertainty intervals.
 ### Calibration
 
 ### Internal validation
-
 
 # Results
 
@@ -143,7 +144,6 @@ kable_table_one(tab_group)
 
 You can also include evaluated R expressions directly in prose when needed.
 
-
 See @fig-cars for an example of a cross-referenced figure.
 
 ```{r fig-cars, echo=FALSE}
@@ -159,7 +159,6 @@ plot(cars$speed, cars$dist)
 ### Calibration
 
 ### Internal validation
-
 
 # Discussion
 
