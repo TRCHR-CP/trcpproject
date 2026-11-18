@@ -16,6 +16,12 @@ If you do not use the Docker, you can install the package from GitHub, if needed
 ```r
 install.packages("remotes")
 remotes::install_github("TRCHR-CP/trcpproject")
+
+# or if you want to make sure to install a specific version, use the tag:
+
+remotes::install_github("TRCHR-CP/trcpproject@v0.2.0")
+
+
 ```
 
 Then load the package and start the interactive setup:
