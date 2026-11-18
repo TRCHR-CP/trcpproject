@@ -575,13 +575,13 @@ create_project <- function(
     to = "ASCII//TRANSLIT"
   )
 
-  x <- tolower(x)
+  #x <- tolower(x)
 
-  x <- gsub(
-    "[^a-z0-9]+",
-    "_",
-    x
-  )
+  #x <- gsub(
+  #  "[^a-z0-9]+",
+  #  "_",
+  #  x
+ # )
 
   x <- gsub(
     "^_+|_+$",
